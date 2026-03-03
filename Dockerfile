@@ -1,15 +1,20 @@
-FROM node:14
+# Use a parent image, e.g., an official Node.js image
+FROM node:18-alpine AS build
 
+# Set the working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
+# Install application dependencies
 RUN npm install
 
+# Copy the rest of the application source code
 COPY . .
 
-RUN npm run build
+# Build the application (if applicable, e.g., a React app)
+# RUN npm run build
 
-EXPOSE 3000
-
-CMD ["node", "index.js"
+# Define the command to run the application
+CMD ["npm", "start"]
